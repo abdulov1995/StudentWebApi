@@ -4,12 +4,21 @@ namespace StudentWebApi
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Students> Students { get; set; }
-        protected  void Onconfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=12345;Database=StudentDB";
-            optionsBuilder.UseNpgsql(connectionString);
+
         }
+        public DbSet<Students> Students { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+        //protected void Onconfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=12345;Database=StudentDB";
+        //    optionsBuilder.UseNpgsql(connectionString);
+        //}
 
     }
 }
