@@ -18,7 +18,7 @@
             context.Students.Add(student);
             context.SaveChanges();
         }
-        public void UpdateStudent(int studentId, Students updatedStudent)
+        public void UpdateStudent(int studentId, Students   updatedStudent)
         {
             var student = context.Students.FirstOrDefault(s => s.Id == studentId);
             student.Name = updatedStudent.Name;

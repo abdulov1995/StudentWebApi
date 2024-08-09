@@ -12,7 +12,7 @@ using StudentWebApi;
 namespace StudentWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240808145322_InitialCreate")]
+    [Migration("20240809112934_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
