@@ -18,7 +18,6 @@ namespace StudentWebApi.Teachers
         public void Create(Teacher teacher)
         {
             context.Teachers.Add(teacher);
-
             context.SaveChanges();
         }
         public void Update(int id, Teacher updatedTeacher)

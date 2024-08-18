@@ -6,7 +6,8 @@ namespace StudentWebApi.Teachers
     [Route("api/[controller]")]
     public class TeacherController:Controller
     {
-        TeacherService teacherService=new TeacherService();
+        private readonly ITeacherService teacherService;
+        //TeacherService teacherService=new TeacherService();
 
         [HttpGet("Get")]
         public void Get()

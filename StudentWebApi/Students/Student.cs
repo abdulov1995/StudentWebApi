@@ -11,6 +11,6 @@ namespace StudentWebApi
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public ICollection<TeacherStudent> TeacherStudents { get; set; }
+        public List<TeacherStudent> TeacherStudents { get; set; }
     }
 }

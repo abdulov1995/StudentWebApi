@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentWebApi.Teachers;
 
 namespace StudentWebApi.TeacherStudents
 {
@@ -6,7 +7,8 @@ namespace StudentWebApi.TeacherStudents
     [Route("api/[controller]")]
     public class TeacherStudentController : Controller
     {
-       TeacherStudentService teacherStudentService = new TeacherStudentService();
+        private readonly ITeacherStudentService teacherStudentService;
+        //TeacherStudentService teacherStudentService = new TeacherStudentService();
         [HttpGet("Get")]
         public void Get()
         {

@@ -9,6 +9,6 @@ namespace StudentWebApi;
         public string Name { get; set; }
         public string Subject { get; set; }
 
-        public ICollection<TeacherStudent> TeacherStudents { get; set; }
+        public List<TeacherStudent> TeacherStudents { get; set; }
     }
 
