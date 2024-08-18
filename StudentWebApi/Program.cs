@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using StudentWebApi;
-using StudentWebApi.Student;
+using StudentWebApi.Students;
 
 var builder = WebApplication.CreateBuilder(args);
 

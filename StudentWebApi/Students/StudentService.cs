@@ -1,39 +1,40 @@
-﻿namespace StudentWebApi.Student
+﻿using Microsoft.EntityFrameworkCore;
+using StudentWebApi.Students;
+
+namespace StudentWebApi
 {
-    public class StudentService
+    public class StudentService:IStudentService
     {
         AppDbContext context=new AppDbContext();
-        public Students? GetStudentById(int studentId)
+        public Student GetById(int studentId)
         {
-            var student = context.Students.FirstOrDefault(s => s.Id == studentId);
+            var student = context.Students.Include(s => s.TeacherStudents).FirstOrDefault(s => s.Id == studentId);
             return student;
         }
-        public List<Students> GetAllStudents()
+        public List<Student> GetAll()
         {
-            var student = context.Students.ToList();
-            return student;
+            var students = context.Students.Include(s => s.TeacherStudents).ToList();
+            return students;
         }
-        public void CreateStudent(Students student)
+        public void Create(Student student)
         {
             context.Students.Add(student);
             context.SaveChanges();
         }
-        public void UpdateStudent(int studentId, Students   updatedStudent)
+        public void Update(int id, Student updatedStudent)
         {
-            var student = context.Students.FirstOrDefault(s => s.Id == studentId);
+            var student = context.Students.FirstOrDefault(s => s.Id == id);
             student.Name = updatedStudent.Name;
             student.Age = updatedStudent.Age;
 
             context.Students.Update(student);
             context.SaveChanges();
         }
-        public void DeleteStudent(int studentId)
+        public void Delete(int studentId)
         {
             var student = context.Students.FirstOrDefault(s => s.Id == studentId);
             context.Students.Remove(student);
             context.SaveChanges();
-
         }
-
     }
 }
