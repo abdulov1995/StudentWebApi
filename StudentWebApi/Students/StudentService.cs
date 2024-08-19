@@ -5,7 +5,12 @@ namespace StudentWebApi
 {
     public class StudentService:IStudentService
     {
-        AppDbContext context=new AppDbContext();
+        private readonly AppDbContext _context;
+        public StudentService(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public Student GetById(int studentId)
         {
             var student = context.Students.Include(s => s.TeacherStudents).FirstOrDefault(s => s.Id == studentId);

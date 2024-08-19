@@ -5,7 +5,11 @@ namespace StudentWebApi.TeacherStudents
 {
     public class TeacherStudentService:ITeacherStudentService
     {
-        AppDbContext context = new();
+        private readonly AppDbContext _context;
+        public TeacherStudentService(AppDbContext context)
+        {
+            _context = context;
+        }
         public void Create(TeacherStudent teacherStudent)
         {
             context.TeacherStudents.Add(teacherStudent);
