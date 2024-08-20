@@ -8,35 +8,36 @@ namespace StudentWebApi.Teachers
     {
         private readonly ITeacherService _teacherService;
         //TeacherService teacherService=new TeacherService();
-        public TeachersController(ITeacherService teacherService)
+        public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
         }
+
         [HttpGet("Get")]
         public void Get()
         {
-            teacherService.GetAll();
+            _teacherService.GetAll();
         }
 
         [HttpGet("GetById")]
         public void Get(int id)
         {
-            teacherService.GetById(id);
+            _teacherService.GetById(id);
         }
         [HttpPost("Create")]
         public void Create(Teacher teacher)
         {
-            teacherService.Create(teacher);
+            _teacherService.Create(teacher);
         }
         [HttpPut("Update")]
         public void Update(int teacherId, Teacher updatedTeacher)
         {
-            teacherService.Update(teacherId, updatedTeacher);
+            _teacherService.Update(teacherId, updatedTeacher);
         }
         [HttpDelete("Delete")]
         public void Delete(int teacherId)
         {
-            teacherService.Delete(teacherId);
+            _teacherService.Delete(teacherId);
         }
     }
 }

@@ -16,27 +16,27 @@ namespace StudentWebApi.TeacherStudents
         [HttpGet("Get")]
         public void Get()
         {
-            teacherStudentService.GetTeacherStudents();
+            _teacherStudentService.GetTeacherStudents();
         }
         [HttpGet("GetById")]
         public void GetById(int Id)
         {
-            teacherStudentService.GetTeacherStudentsById(Id);   
+            _teacherStudentService.GetTeacherStudentsById(Id);   
         }
         [HttpPost("Create")]
         public void Create(TeacherStudent teacherStudent)
         {
-            teacherStudentService.Create(teacherStudent);
+            _teacherStudentService.Create(teacherStudent);
         }
         [HttpPut("Update")]
         public void Update(int teacherId, int studentId, TeacherStudent teacherStudent)
         {
-            teacherStudentService.Update(teacherId,studentId, teacherStudent);
+            _teacherStudentService.Update(teacherId,studentId, teacherStudent);
         }
         [HttpDelete("Delete")]
         public void Delete(int teacherId = 0, int studentId = 0)
         {
-            teacherStudentService.Delete(studentId,studentId);
+            _teacherStudentService.Delete(studentId,studentId);
         }
 
     }

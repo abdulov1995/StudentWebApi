@@ -12,33 +12,33 @@ namespace StudentWebApi.Teachers
         }
         public Teacher GetById(int teacherId)
         {
-            var teacher = context.Teachers.Include(t => t.TeacherStudents).FirstOrDefault(s => s.Id == teacherId);
+            var teacher = _context.Teachers.Include(t => t.TeacherStudents).FirstOrDefault(s => s.Id == teacherId);
             return teacher;
         }
         public List<Teacher> GetAll()
         {
-            var teachers = context.Teachers.Include(t => t.TeacherStudents).ToList();
+            var teachers = _context.Teachers.Include(t => t.TeacherStudents).ToList();
             return teachers;
         }
         public void Create(Teacher teacher)
         {
-            context.Teachers.Add(teacher);
-            context.SaveChanges();
+            _context.Teachers.Add(teacher);
+            _context.SaveChanges();
         }
         public void Update(int id, Teacher updatedTeacher)
         {
-            var teacher = context.Teachers.FirstOrDefault(t => t.Id == id);
+            var teacher = _context.Teachers.FirstOrDefault(t => t.Id == id);
             teacher.Name = updatedTeacher.Name;
             teacher.Subject = updatedTeacher.Subject;
 
-            context.Teachers.Update(teacher);
-            context.SaveChanges();
+            _context.Teachers.Update(teacher);
+            _context.SaveChanges();
         }
         public void Delete(int teacherId)
         {
-            var teacher = context.Teachers.FirstOrDefault(t => t.Id == teacherId);
-            context.Teachers.Remove(teacher);
-            context.SaveChanges();
+            var teacher = _context.Teachers.FirstOrDefault(t => t.Id == teacherId);
+            _context.Teachers.Remove(teacher);
+            _context.SaveChanges();
         }
     }
 }

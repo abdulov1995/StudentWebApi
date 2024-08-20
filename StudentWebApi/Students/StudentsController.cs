@@ -18,27 +18,27 @@ namespace StudentWebApi.Students
         [HttpGet("Get")]
         public void Get()
         {
-            studentService.GetAll();
+            _studentService.GetAll();
         }
         [HttpGet("GetById")]
         public void Get(int id)
         {
-            studentService.GetById(id);
+            _studentService.GetById(id);
         }
         [HttpPost("Create")]
         public void Create(Student student)
         {
-            studentService.Create(student);
+            _studentService.Create(student);
         }
         [HttpPut("Update")]
         public void Update(int studentId, Student updatedStudent)
         {
-            studentService.Update(studentId, updatedStudent);
+            _studentService.Update(studentId, updatedStudent);
         }
         [HttpDelete("Delete")]
         public void Delete(int studentId)
         {
-            studentService.Delete(studentId);
+            _studentService.Delete(studentId);
         }
     }
 }

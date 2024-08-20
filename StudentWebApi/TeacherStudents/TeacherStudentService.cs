@@ -12,18 +12,18 @@ namespace StudentWebApi.TeacherStudents
         }
         public void Create(TeacherStudent teacherStudent)
         {
-            context.TeacherStudents.Add(teacherStudent);
-            context.SaveChanges();
+            _context.TeacherStudents.Add(teacherStudent);
+            _context.SaveChanges();
         }
         public List<TeacherStudent> GetTeacherStudents()
         {
-            return context.TeacherStudents.Include(ts => ts.Teacher)
+            return _context.TeacherStudents.Include(ts => ts.Teacher)
                   .Include(ts => ts.Student)
                   .ToList();
         }
         public List<TeacherStudent> GetTeacherStudentsById(int teacherId)
         {
-            return context.TeacherStudents.Include(ts => ts.Teacher)
+            return _context.TeacherStudents.Include(ts => ts.Teacher)
                .Include(ts => ts.Student)
                .Where(ts => ts.TeacherId == teacherId)
                .ToList();
@@ -32,33 +32,33 @@ namespace StudentWebApi.TeacherStudents
         {
             if (teacherId != 0 && studentId == 0)
             {
-                TeacherService teacherService = new TeacherService();
-                var teacherStudent = context.TeacherStudents.FirstOrDefault(ts => ts.TeacherId == teacherId);
-                var teacher = context.Teachers.FirstOrDefault(t => t.Id == teacherId);
-                context.TeacherStudents.Remove(teacherStudent);
-                context.Teachers.Remove(teacher);
+               // TeacherService teacherService = new TeacherService();
+                var teacherStudent = _context.TeacherStudents.FirstOrDefault(ts => ts.TeacherId == teacherId);
+                var teacher = _context.Teachers.FirstOrDefault(t => t.Id == teacherId);
+                _context.TeacherStudents.Remove(teacherStudent);
+                _context.Teachers.Remove(teacher);
             }
             else if (teacherId == 0 && studentId != 0)
             {
-                var teacherStudent = context.TeacherStudents.FirstOrDefault(ts => ts.StudentId == studentId);
-                var student = context.Students.FirstOrDefault(s => s.Id == studentId);
-                context.Students.Remove(student);
-                context.TeacherStudents.Remove(teacherStudent);
+                var teacherStudent = _context.TeacherStudents.FirstOrDefault(ts => ts.StudentId == studentId);
+                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+                _context.Students.Remove(student);
+                _context.TeacherStudents.Remove(teacherStudent);
             }
             else if (teacherId != 0 && studentId != 0)
             {
-                var teacherStudent = context.TeacherStudents.FirstOrDefault(ts => ts.TeacherId == teacherId && ts.StudentId == studentId);
-                var student = context.Students.FirstOrDefault(s => s.Id == studentId);
-                var teacher = context.Teachers.FirstOrDefault(t => t.Id == teacherId);
-                context.TeacherStudents.Remove(teacherStudent);
-                context.Students.Remove(student);
-                context.Teachers.Remove(teacher);
+                var teacherStudent = _context.TeacherStudents.FirstOrDefault(ts => ts.TeacherId == teacherId && ts.StudentId == studentId);
+                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+                var teacher = _context.Teachers.FirstOrDefault(t => t.Id == teacherId);
+                _context.TeacherStudents.Remove(teacherStudent);
+                _context.Students.Remove(student);
+                _context.Teachers.Remove(teacher);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
         public void Update(int teacherId, int studentId, TeacherStudent teacherStudent)
         {
-            var newInput = context.TeacherStudents.Include(ts => ts.Teacher)
+            var newInput = _context.TeacherStudents.Include(ts => ts.Teacher)
                                                  .Include(ts => ts.Student)
                                                  .FirstOrDefault(ts => ts.TeacherId == teacherId && ts.StudentId == studentId);
             newInput.Teacher.Name = teacherStudent.Teacher.Name;
@@ -66,8 +66,8 @@ namespace StudentWebApi.TeacherStudents
             newInput.Student.Name = teacherStudent.Student.Name;
             newInput.Student.Age = teacherStudent.Student.Age;
 
-            context.TeacherStudents.Update(newInput);
-            context.SaveChanges();
+            _context.TeacherStudents.Update(newInput);
+            _context.SaveChanges();
         }
     }
 }

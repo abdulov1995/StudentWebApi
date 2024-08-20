@@ -13,33 +13,33 @@ namespace StudentWebApi
 
         public Student GetById(int studentId)
         {
-            var student = context.Students.Include(s => s.TeacherStudents).FirstOrDefault(s => s.Id == studentId);
+            var student = _context.Students.Include(s => s.TeacherStudents).FirstOrDefault(s => s.Id == studentId);
             return student;
         }
         public List<Student> GetAll()
         {
-            var students = context.Students.Include(s => s.TeacherStudents).ToList();
+            var students = _context.Students.Include(s => s.TeacherStudents).ToList();
             return students;
         }
         public void Create(Student student)
         {
-            context.Students.Add(student);
-            context.SaveChanges();
+            _context.Students.Add(student);
+            _context.SaveChanges();
         }
         public void Update(int id, Student updatedStudent)
         {
-            var student = context.Students.FirstOrDefault(s => s.Id == id);
+            var student = _context.Students.FirstOrDefault(s => s.Id == id);
             student.Name = updatedStudent.Name;
             student.Age = updatedStudent.Age;
 
-            context.Students.Update(student);
-            context.SaveChanges();
+            _context.Students.Update(student);
+            _context.SaveChanges();
         }
         public void Delete(int studentId)
         {
-            var student = context.Students.FirstOrDefault(s => s.Id == studentId);
-            context.Students.Remove(student);
-            context.SaveChanges();
+            var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+            _context.Students.Remove(student);
+            _context.SaveChanges();
         }
     }
 }
