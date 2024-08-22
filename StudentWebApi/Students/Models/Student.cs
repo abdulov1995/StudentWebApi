@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using StudentWebApi.Teachers.Models;
 
-namespace StudentWebApi
+namespace StudentWebApi.Students.Models
 {
     public class Student
     {

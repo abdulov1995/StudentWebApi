@@ -1,4 +1,5 @@
 ﻿using StudentWebApi.Students;
+using StudentWebApi.Students.Models;
 
 
 namespace StudentWebApi

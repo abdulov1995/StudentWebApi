@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentWebApi.Students;
+using StudentWebApi.Students.Models;
+using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi
 {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using StudentWebApi;
 using StudentWebApi.Students;
 using StudentWebApi.Teachers;
-using StudentWebApi.TeacherStudents;
+//using StudentWebApi.TeacherStudents;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddScoped<ITeacherStudentService, TeacherStudentService>();
+builder.Services.AddAutoMapper(typeof(StudentMapperProfile).Assembly);
+//builder.Services.AddScoped<ITeacherStudentService, TeacherStudentService>();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 

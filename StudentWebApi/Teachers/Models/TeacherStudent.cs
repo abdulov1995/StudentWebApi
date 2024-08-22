@@ -1,6 +1,7 @@
-﻿using StudentWebApi.Teachers;
+﻿using StudentWebApi.Students.Models;
+using StudentWebApi.Teachers;
 
-namespace StudentWebApi
+namespace StudentWebApi.Teachers.Models
 {
     public class TeacherStudent
     {

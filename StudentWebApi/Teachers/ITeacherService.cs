@@ -1,4 +1,6 @@
-﻿namespace StudentWebApi.Teachers
+﻿using StudentWebApi.Teachers.Models;
+
+namespace StudentWebApi.Teachers
 {
     public interface ITeacherService
     {

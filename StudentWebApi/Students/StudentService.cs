@@ -1,11 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentWebApi.Students;
+using StudentWebApi.Students.Models;
 
 namespace StudentWebApi
 {
     public class StudentService:IStudentService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+        public StudentService(IMapper mapper)
+        {
+                _mapper = mapper;
+        }
         public StudentService(AppDbContext context)
         {
             _context = context;

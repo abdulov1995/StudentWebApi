@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentWebApi.Students.Models;
+using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi.Teachers
 {
@@ -14,15 +16,15 @@ namespace StudentWebApi.Teachers
         }
 
         [HttpGet("Get")]
-        public void Get()
+        public ActionResult<List<Teacher>> Get()
         {
-            _teacherService.GetAll();
+            return _teacherService.GetAll();
         }
 
         [HttpGet("GetById")]
-        public void Get(int id)
+        public Teacher GetById(int id)
         {
-            _teacherService.GetById(id);
+            return _teacherService.GetById(id);
         }
         [HttpPost("Create")]
         public void Create(Teacher teacher)
