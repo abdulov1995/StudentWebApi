@@ -1,11 +1,12 @@
-﻿using StudentWebApi.Teachers.Models;
+﻿using StudentWebApi.Teachers.DTO;
+using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi.Teachers
 {
     public interface ITeacherService
     {
-        Teacher GetById(int teacherId);
-        List<Teacher> GetAll();
+        TeacherDto GetById(int teacherId);
+        List<TeacherDetailDto> GetAll();
         void Create(Teacher teacher);
         void Update(int id, Teacher updatedTeacher);
         void Delete(int teacherId);

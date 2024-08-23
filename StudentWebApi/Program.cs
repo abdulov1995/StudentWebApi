@@ -3,6 +3,8 @@ using Microsoft.Extensions.Options;
 using StudentWebApi;
 using StudentWebApi.Students;
 using StudentWebApi.Teachers;
+using AutoMapper;
+
 //using StudentWebApi.TeacherStudents;
 
 
@@ -15,9 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddAutoMapper(typeof(StudentMapperProfile).Assembly);
+//builder.Services.AddScoped<IStudentService, StudentService>();
+//builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 //builder.Services.AddScoped<ITeacherStudentService, TeacherStudentService>();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
