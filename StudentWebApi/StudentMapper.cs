@@ -2,13 +2,16 @@
 using StudentWebApi.Students.DTO;
 using StudentWebApi.Students.Models;
 
-namespace StudentWebApi.Students
+
+
+namespace StudentWebApi
 {
-    public class MapperProfile:Profile
+    public class StudentMapper:Profile
     {
-        public MapperProfile()
+        public StudentMapper()
         {
             CreateMap<Student, StudentDto>();
+            CreateMap<StudentDto, Student>();
         }
     }
 }

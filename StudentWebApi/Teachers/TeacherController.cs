@@ -15,31 +15,31 @@ namespace StudentWebApi.Teachers
             _teacherService = teacherService;
         }
 
-        //[HttpGet("Get")]
-        //public ActionResult<List<Teacher>> Get()
-        //{
-        //    return _teacherService.GetAll();
-        //}
+        [HttpGet("Get")]
+        public ActionResult<List<Teacher>> Get()
+        {
+            return _teacherService.GetAll();
+        }
 
-        //[HttpGet("GetById")]
-        //public Teacher GetById(int id)
-        //{
-        //    return _teacherService.GetById(id);
-        //}
-        //[HttpPost("Create")]
-        //public void Create(Teacher teacher)
-        //{
-        //    _teacherService.Create(teacher);
-        //}
-        //[HttpPut("Update")]
-        //public void Update(int teacherId, Teacher updatedTeacher)
-        //{
-        //    _teacherService.Update(teacherId, updatedTeacher);
-        //}
-        //[HttpDelete("Delete")]
-        //public void Delete(int teacherId)
-        //{
-        //    _teacherService.Delete(teacherId);
-        //}
+        [HttpGet("GetById")]
+        public Teacher GetById(int id)
+        {
+            return _teacherService.GetById(id);
+        }
+        [HttpPost("Create")]
+        public void Create(Teacher teacher)
+        {
+            _teacherService.Create(teacher);
+        }
+        [HttpPut("Update")]
+        public void Update(int teacherId, Teacher updatedTeacher)
+        {
+            _teacherService.Update(teacherId, updatedTeacher);
+        }
+        [HttpDelete("Delete")]
+        public void Delete(int teacherId)
+        {
+            _teacherService.Delete(teacherId);
+        }
     }
 }
