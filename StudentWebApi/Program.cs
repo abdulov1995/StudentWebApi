@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddAutoMapper(typeof(StudentMapperProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(StudentMapperProfile).Assembly );
 //builder.Services.AddScoped<ITeacherStudentService, TeacherStudentService>();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
