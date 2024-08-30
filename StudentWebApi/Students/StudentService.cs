@@ -1,31 +1,30 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentWebApi.Students;
+using StudentWebApi.Students.DTO;
 using StudentWebApi.Students.Models;
 
 namespace StudentWebApi
 {
-    public class StudentService:IStudentService
+    public class StudentService : IStudentService
     {
-        private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        public StudentService(IMapper mapper)
+        private readonly IStudentService _studentService;
+        public StudentService(IMapper mapper,IStudentService studentService)
         {
-                _mapper = mapper;
-        }
-        public StudentService(AppDbContext context)
-        {
-            _context = context;
+            _mapper = mapper;
+            _studentService=studentService;
         }
 
-        public Student GetById(int studentId)
+        public StudentDto GetById(int studentId)
         {
-            var student = _context.Students.Include(s => s.TeacherStudents).FirstOrDefault(s => s.Id == studentId);
+            var studentDto=studentService.GetById(studentId);
+            var student = _mapper.Map<Student>(studentDto);
             return student;
         }
-        public List<Student> GetAll()
+        public List<StudentDetailDto> GetAll()
         {
-            var students = _context.Students.Include(s => s.TeacherStudents).ToList();
+            var students=_mapper.Map<Student>
             return students;
         }
         public void Create(Student student)

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentWebApi.Students;
+using StudentWebApi.Students.DTO;
 using StudentWebApi.Students.Models;
 using StudentWebApi.Teachers;
 
 namespace StudentWebApi.Students
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[]")]
     public class StudentsController : Controller
     {
         private readonly IStudentService _studentService;
@@ -17,16 +18,15 @@ namespace StudentWebApi.Students
         }
 
         [HttpGet("Get")]
-        public ActionResult<List<Student>> Get()
+        public ActionResult<List<StudentDetailDto>> Get()
         {
             return _studentService.GetAll();
-
         }
         [HttpGet("GetById")]
-        public Student GetById(int id)
-        {
-           return _studentService.GetById(id);
-        }
+        //public Student GetById(int id)
+        //{
+        //  // return _studentService.GetById(id);
+        //}
         [HttpPost("Create")]
         public void Create(Student student)
         {

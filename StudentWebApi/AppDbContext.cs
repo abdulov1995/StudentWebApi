@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentWebApi.Students;
+using StudentWebApi.Students.DTO;
 using StudentWebApi.Students.Models;
+using StudentWebApi.Teachers.DTO;
 using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi

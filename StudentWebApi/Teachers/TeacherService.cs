@@ -1,24 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using StudentWebApi.Teachers.DTO;
 using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi.Teachers
 {
-    public class TeacherService:ITeacherService
+    public class TeacherService : ITeacherService
     {
-        private readonly AppDbContext _context;
-
-        public TeacherService(AppDbContext context)
+        //private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+        public TeacherService(IMapper mapper)
         {
-            _context = context;
+            _mapper = mapper;
         }
-        public Teacher GetById(int teacherId)
+        //public TeacherService(AppDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        public TeacherDto GetById(int teacherId)
         {
-            var teacher = _context.Teachers.Include(t => t.TeacherStudents).FirstOrDefault(s => s.Id == teacherId);
+            var teacher = _context.Teachers.Include(s => s.Name).FirstOrDefault(t => t.Id == teacherId);
             return teacher;
         }
-        public List<Teacher> GetAll()
+        public List<TeacherDetailDto> GetAll()
         {
-            var teachers = _context.Teachers.Include(t => t.TeacherStudents).ToList();
+            var teachers = _context.TeachersDetailDto.Include(s => s.Students).ToList();
             return teachers;
         }
         public void Create(Teacher teacher)
