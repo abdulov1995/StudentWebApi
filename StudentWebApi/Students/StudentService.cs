@@ -8,36 +8,41 @@ namespace StudentWebApi
 {
     public class StudentService : IStudentService
     {
+        private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IStudentService _studentService;
-        public StudentService(IMapper mapper,IStudentService studentService)
+        
+
+        public StudentService(AppDbContext context,IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
-            _studentService=studentService;
         }
 
         public StudentDto GetById(int studentId)
         {
-            var studentDto=studentService.GetById(studentId);
-            var student = _mapper.Map<Student>(studentDto);
-            return student;
+            var studentDto= _context.Students.Where(s=>s.Id==studentId).FirstOrDefault();
+            return _mapper.Map<StudentDto>(studentDto);
+             
         }
         public List<StudentDetailDto> GetAll()
         {
-            var students=_mapper.Map<Student>
-            return students;
+
+            var students=_context.Students.Include(s=>s.Teachers)
+                .ToList();
+            var studentDetailDto=_mapper.Map<List<StudentDetailDto>>(students);
+            return studentDetailDto;
+            
         }
-        public void Create(Student student)
+        public void Create(CreateStudentDto createStudentDto)
         {
-            _context.Students.Add(student);
+            var student=_mapper.Map<Student>(createStudentDto); 
+           _context.Students.Add(student);
             _context.SaveChanges();
         }
-        public void Update(int id, Student updatedStudent)
+        public void Update(int id, UpdateStudentDto updatedStudent)
         {
-            var student = _context.Students.FirstOrDefault(s => s.Id == id);
-            student.Name = updatedStudent.Name;
-            student.Age = updatedStudent.Age;
-
+            var student = _context.Students.Find(id);    
+            _mapper.Map(updatedStudent, student);
             _context.Students.Update(student);
             _context.SaveChanges();
         }

@@ -9,8 +9,8 @@ namespace StudentWebApi
     {
         StudentDto GetById(int studentId);
         List<StudentDetailDto> GetAll();
-        void Create(Student student);
-        void Update(int id, Student updatedStudent);
+        void Create(CreateStudentDto createStudentDto);
+        void Update(int id, UpdateStudentDto updatedStudent);
         void Delete(int studentId);
     }
 

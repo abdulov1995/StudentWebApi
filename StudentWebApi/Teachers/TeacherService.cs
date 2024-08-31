@@ -7,7 +7,7 @@ namespace StudentWebApi.Teachers
 {
     public class TeacherService : ITeacherService
     {
-        //private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
         private readonly IMapper _mapper;
         public TeacherService(IMapper mapper)
         {

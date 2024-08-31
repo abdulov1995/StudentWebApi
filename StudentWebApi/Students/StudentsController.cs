@@ -11,7 +11,6 @@ namespace StudentWebApi.Students
     public class StudentsController : Controller
     {
         private readonly IStudentService _studentService;
-        //StudentService studentService = new StudentService();
         public StudentsController(IStudentService studentService)
         {
             _studentService = studentService;
@@ -23,10 +22,10 @@ namespace StudentWebApi.Students
             return _studentService.GetAll();
         }
         [HttpGet("GetById")]
-        //public Student GetById(int id)
-        //{
-        //  // return _studentService.GetById(id);
-        //}
+        public  StudentDto GetById(int id)
+        {
+            _studentService.GetById(id);
+        }
         [HttpPost("Create")]
         public void Create(Student student)
         {
