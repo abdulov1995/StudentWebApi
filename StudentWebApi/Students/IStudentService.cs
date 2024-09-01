@@ -7,8 +7,8 @@ namespace StudentWebApi
 {
     public interface IStudentService
     {
-        StudentDto GetById(int studentId);
-        List<StudentDetailDto> GetAll();
+        StudentDetailDto GetById(int studentId);
+        List<StudentDto> GetAll();
         void Create(CreateStudentDto createStudentDto);
         void Update(int id, UpdateStudentDto updatedStudent);
         void Delete(int studentId);

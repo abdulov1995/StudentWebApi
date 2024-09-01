@@ -9,27 +9,24 @@ namespace StudentWebApi.Teachers
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        public TeacherService(IMapper mapper)
+        public TeacherService(IMapper mapper, AppDbContext context)
         {
             _mapper = mapper;
+            _context = context;
         }
-        //public TeacherService(AppDbContext context)
-        //{
-        //    _context = context;
-        //}
-
-        public TeacherDto GetById(int teacherId)
+        public TeacherDetailDto GetById(int teacherId)
         {
             var teacher = _context.Teachers.Include(s => s.Name).FirstOrDefault(t => t.Id == teacherId);
             return teacher;
         }
-        public List<TeacherDetailDto> GetAll()
+        public List<TeacherDto> GetAll()
         {
             var teachers = _context.TeachersDetailDto.Include(s => s.Students).ToList();
             return teachers;
         }
-        public void Create(Teacher teacher)
+        public void Create(CreateTeacherDto teacherDto)
         {
+            var teacher=_mapper.Map<TeacherDto>,< Teacher > (teacherDto);
             _context.Teachers.Add(teacher);
             _context.SaveChanges();
         }

@@ -17,29 +17,29 @@ namespace StudentWebApi.Students
         }
 
         [HttpGet("Get")]
-        public ActionResult<List<StudentDetailDto>> Get()
+        public ActionResult<List<StudentDto>> GetAll()
         {
-            return _studentService.GetAll();
+            return _studentService.GetAll();    
         }
-        [HttpGet("GetById")]
-        public  StudentDto GetById(int id)
+        [HttpGet("{id}")]
+        public  StudentDetailDto GetById(int id)
         {
-            _studentService.GetById(id);
+           return _studentService.GetById(id);
         }
-        [HttpPost("Create")]
-        public void Create(Student student)
+        [HttpPost]
+        public void Create(CreateStudentDto student)
         {
             _studentService.Create(student);
         }
-        [HttpPut("Update")]
-        public void Update(int studentId, Student updatedStudent)
+        [HttpPut("{id}")]
+        public void Update(int id, UpdateStudentDto updatedStudent)
         {
-            _studentService.Update(studentId, updatedStudent);
+            _studentService.Update(id, updatedStudent);
         }
-        [HttpDelete("Delete")]
-        public void Delete(int studentId)
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            _studentService.Delete(studentId);
+            _studentService.Delete(id);
         }
     }
 }

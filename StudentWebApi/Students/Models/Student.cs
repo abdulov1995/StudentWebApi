@@ -11,7 +11,7 @@ namespace StudentWebApi.Students.Models
         [Required]
         public string Name { get; set; }
         public int Age { get; set; }
-
         public List<Teacher> Teachers { get; set; }
+        public List<TeacherStudent> TeacherStudents { get; set; }
     }
 }
