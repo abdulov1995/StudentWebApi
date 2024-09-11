@@ -1,42 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentWebApi.Students.Models;
+using StudentWebApi.Teachers.DTO;
 using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi.Teachers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/teachers")]
     public class TeacherController:Controller
     {
         private readonly ITeacherService _teacherService;
-        //TeacherService teacherService=new TeacherService();
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
         }
-
-        [HttpGet("Get")]
-        public ActionResult<List<Teacher>> Get()
+        [HttpGet]
+        public ActionResult<List<TeacherDto>> GetAll()
         {
             return _teacherService.GetAll();
         }
-
-        [HttpGet("GetById")]
-        public Teacher GetById(int id)
+        [HttpGet("{id}")]
+        public TeacherDetailDto GetById(int id)
         {
             return _teacherService.GetById(id);
         }
-        [HttpPost("Create")]
-        public void Create(Teacher teacher)
+        [HttpPost]
+        public void Create(CreateTeacherDto teacher)
         {
             _teacherService.Create(teacher);
         }
-        [HttpPut("Update")]
+        [HttpPut("{id}")]
         public void Update(int teacherId, Teacher updatedTeacher)
         {
             _teacherService.Update(teacherId, updatedTeacher);
         }
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public void Delete(int teacherId)
         {
             _teacherService.Delete(teacherId);

@@ -12,8 +12,8 @@ namespace StudentWebApi.Students.Models
         public StudentMapper()
         {
             CreateMap<Student,StudentDto >().ReverseMap();
-            CreateMap<Student,CreateStudentDto >();
-            CreateMap<Student,UpdateStudentDto >();
+            CreateMap<Student,CreateStudentDto >().ReverseMap();
+            CreateMap<Student,UpdateStudentDto >().ReverseMap();
             CreateMap<Student, StudentDetailDto>()
                 .ForMember(dest => dest.Teachers, opt => opt.MapFrom(src => src.Teachers));
         }

@@ -29,6 +29,8 @@ namespace StudentWebApi
         public void Create(CreateStudentDto createStudentDto)
         {
             var student = _mapper.Map<Student>(createStudentDto);
+            _context.Students.Add(student);
+            _context.SaveChanges();
             var teacherStudents = new List<TeacherStudent>();
             foreach (var teacherId in createStudentDto.TeacherIds)
             {
@@ -44,10 +46,9 @@ namespace StudentWebApi
                 };
                 teacherStudents.Add(teacherStudent);
 
-                _context.Students.Add(student);
-                _context.TeacherStudents.AddRange(teacherStudents);
-                _context.SaveChanges();
             }
+            _context.TeacherStudents.AddRange(teacherStudents);
+            _context.SaveChanges();
         }
         public void Update(int id, UpdateStudentDto updatedStudentDto)
         {

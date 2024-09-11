@@ -5,9 +5,9 @@ namespace StudentWebApi.Teachers
 {
     public interface ITeacherService
     {
-        TeacherDto GetById(int teacherId);
-        List<TeacherDetailDto> GetAll();
-        void Create(Teacher teacher);
+        TeacherDetailDto GetById(int teacherId);
+        List<TeacherDto> GetAll();
+        void Create(CreateTeacherDto createTeacherDto);
         void Update(int id, Teacher updatedTeacher);
         void Delete(int teacherId);
     }

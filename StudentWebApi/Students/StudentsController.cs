@@ -7,7 +7,7 @@ using StudentWebApi.Teachers;
 namespace StudentWebApi.Students
 {
     [ApiController]
-    [Route("api/[]")]
+    [Route("api/students")]
     public class StudentsController : Controller
     {
         private readonly IStudentService _studentService;
@@ -16,7 +16,7 @@ namespace StudentWebApi.Students
             _studentService = studentService;
         }
 
-        [HttpGet("Get")]
+        [HttpGet]
         public ActionResult<List<StudentDto>> GetAll()
         {
             return _studentService.GetAll();    

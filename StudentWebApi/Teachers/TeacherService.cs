@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using StudentWebApi.Students.DTO;
+using StudentWebApi.Students.Models;
 using StudentWebApi.Teachers.DTO;
 using StudentWebApi.Teachers.Models;
 
@@ -16,26 +18,42 @@ namespace StudentWebApi.Teachers
         }
         public TeacherDetailDto GetById(int teacherId)
         {
-            var teacher = _context.Teachers.Include(s => s.Name).FirstOrDefault(t => t.Id == teacherId);
-            return teacher;
+            var teacher = _context.Teachers.Include(s => s.Students).FirstOrDefault(t => t.Id == teacherId);
+            return _mapper.Map<TeacherDetailDto>(teacher);
         }
         public List<TeacherDto> GetAll()
         {
-            var teachers = _context.TeachersDetailDto.Include(s => s.Students).ToList();
-            return teachers;
+            var teachers = _context.Teachers.Include(s => s.Students).ToList();
+            return _mapper.Map<List<TeacherDto>>(teachers);
         }
-        public void Create(CreateTeacherDto teacherDto)
+        public void Create(CreateTeacherDto createTeacherDto)
         {
-            var teacher=_mapper.Map<TeacherDto>,< Teacher > (teacherDto);
+            var teacher = _mapper.Map<Teacher>(createTeacherDto);
             _context.Teachers.Add(teacher);
+            _context.SaveChanges();
+            var studentTeachers = new List<TeacherStudent>();
+
+            foreach (var studentId in createTeacherDto.StudentIds)
+            {
+                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+                if (student == null)
+                {
+                    throw new ArgumentException($"Student with ID {studentId} does not exist.");
+                }
+                var studentTeacher = new TeacherStudent
+                {
+                    StudentId = studentId,
+                    TeacherId = teacher.Id,
+                };
+                studentTeachers.Add(studentTeacher);
+            }
+            _context.TeacherStudents.AddRange(studentTeachers);
             _context.SaveChanges();
         }
         public void Update(int id, Teacher updatedTeacher)
         {
             var teacher = _context.Teachers.FirstOrDefault(t => t.Id == id);
-            teacher.Name = updatedTeacher.Name;
-            teacher.Subject = updatedTeacher.Subject;
-
+            _mapper.Map(updatedTeacher, teacher);
             _context.Teachers.Update(teacher);
             _context.SaveChanges();
         }

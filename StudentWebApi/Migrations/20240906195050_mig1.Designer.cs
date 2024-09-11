@@ -11,8 +11,8 @@ using StudentWebApi;
 namespace StudentWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240818120754_Mig1")]
-    partial class Mig1
+    [Migration("20240906195050_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,22 @@ namespace StudentWebApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StudentWebApi.Student", b =>
+            modelBuilder.Entity("StudentTeacher", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TeachersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("StudentsId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("StudentTeacher");
+                });
+
+            modelBuilder.Entity("StudentWebApi.Students.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +59,7 @@ namespace StudentWebApi.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("StudentWebApi.Teacher", b =>
+            modelBuilder.Entity("StudentWebApi.Teachers.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +80,7 @@ namespace StudentWebApi.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("StudentWebApi.TeacherStudent", b =>
+            modelBuilder.Entity("StudentWebApi.Teachers.Models.TeacherStudent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,15 +103,30 @@ namespace StudentWebApi.Migrations
                     b.ToTable("TeacherStudents");
                 });
 
-            modelBuilder.Entity("StudentWebApi.TeacherStudent", b =>
+            modelBuilder.Entity("StudentTeacher", b =>
                 {
-                    b.HasOne("StudentWebApi.Student", "Student")
+                    b.HasOne("StudentWebApi.Students.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentWebApi.Teachers.Models.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StudentWebApi.Teachers.Models.TeacherStudent", b =>
+                {
+                    b.HasOne("StudentWebApi.Students.Models.Student", "Student")
                         .WithMany("TeacherStudents")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudentWebApi.Teacher", "Teacher")
+                    b.HasOne("StudentWebApi.Teachers.Models.Teacher", "Teacher")
                         .WithMany("TeacherStudents")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -107,12 +137,12 @@ namespace StudentWebApi.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("StudentWebApi.Student", b =>
+            modelBuilder.Entity("StudentWebApi.Students.Models.Student", b =>
                 {
                     b.Navigation("TeacherStudents");
                 });
 
-            modelBuilder.Entity("StudentWebApi.Teacher", b =>
+            modelBuilder.Entity("StudentWebApi.Teachers.Models.Teacher", b =>
                 {
                     b.Navigation("TeacherStudents");
                 });
