@@ -8,11 +8,11 @@ namespace StudentWebApi.Teachers
     {
         public TeacherMapper()
         {
-            CreateMap<Teacher, TeacherDto>().ReverseMap();
-            CreateMap<Teacher, CreateTeacherDto>().ReverseMap();
-            CreateMap<Teacher, UpdateTeacherDto>().ReverseMap();
+            CreateMap<Teacher, TeacherDto>();
+            CreateMap<CreateTeacherDto,Teacher>();
+            CreateMap<UpdateTeacherDto,Teacher>();
             CreateMap<Teacher, TeacherDetailDto>()
-                .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.TeacherStudents));
+                .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.TeacherStudents.Select(x=>x.Student)));
         }
     }
 }

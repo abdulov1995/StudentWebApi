@@ -8,6 +8,7 @@ public class Teacher
     [Required]
     public string Name { get; set; }
     public string Subject { get; set; }
+    public bool IsDeleted { get; set; } = false;
     public List<TeacherStudent> TeacherStudents { get; set; }
 }
 

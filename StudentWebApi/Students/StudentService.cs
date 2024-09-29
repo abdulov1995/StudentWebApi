@@ -20,12 +20,12 @@ namespace StudentWebApi
         }
         public StudentDetailDto GetById(int studentId)
         {
-            var student = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).FirstOrDefault(s => s.Id == studentId);
+            var student = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).FirstOrDefault(s => s.Id == studentId && !s.IsDeleted);
             return _mapper.Map<StudentDetailDto>(student);
         }
         public List<StudentDto> GetAll()
         {
-            var students = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).ToList();
+            var students = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).Where(s => !s.IsDeleted).ToList();
             return _mapper.Map<List<StudentDto>>(students);
         }
         public void Create(CreateStudentDto createStudentDto)
@@ -79,9 +79,18 @@ namespace StudentWebApi
         }
         public void Delete(int studentId)
         {
-            var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
-            _context.Students.Remove(student);
-            _context.SaveChanges();
+            var student = _context.Students
+                .Include(s => s.TeacherStudents) 
+                .FirstOrDefault(s => s.Id == studentId);
+            student.IsDeleted = true;
+            if (student.TeacherStudents != null)
+            {
+                foreach (var teacherStudent in student.TeacherStudents)
+                {
+                    teacherStudent.IsDeleted = true;
+                }
+            }
+                _context.SaveChanges();
         }
     }
 }

@@ -11,7 +11,7 @@ using StudentWebApi;
 namespace StudentWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240913072437_mig1")]
+    [Migration("20240929203450_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -35,6 +35,9 @@ namespace StudentWebApi.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -51,6 +54,9 @@ namespace StudentWebApi.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -72,6 +78,9 @@ namespace StudentWebApi.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");

@@ -11,6 +11,7 @@ namespace StudentWebApi.Students.Models
         [Required]
         public string Name { get; set; }
         public int Age { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public List<TeacherStudent> TeacherStudents { get; set; }
     }
 }
