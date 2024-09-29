@@ -4,7 +4,6 @@ using StudentWebApi;
 using StudentWebApi.Students;
 using StudentWebApi.Teachers;
 using AutoMapper;
-using StudentWebApi.Students.Models;
 
 
 //using StudentWebApi.TeacherStudents;

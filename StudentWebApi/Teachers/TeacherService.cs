@@ -18,12 +18,12 @@ namespace StudentWebApi.Teachers
         }
         public TeacherDetailDto GetById(int teacherId)
         {
-            var teacher = _context.Teachers.Include(s => s.Students).FirstOrDefault(t => t.Id == teacherId);
+            var teacher = _context.Teachers.Include(s => s.TeacherStudents).ThenInclude(s=>s.Student).FirstOrDefault(t => t.Id == teacherId);
             return _mapper.Map<TeacherDetailDto>(teacher);
         }
         public List<TeacherDto> GetAll()
         {
-            var teachers = _context.Teachers.Include(s => s.Students).ToList();
+            var teachers = _context.Teachers.Include(s => s.TeacherStudents).ThenInclude(s=>s.Student).ToList();
             return _mapper.Map<List<TeacherDto>>(teachers);
         }
         public void Create(CreateTeacherDto createTeacherDto)
@@ -50,11 +50,34 @@ namespace StudentWebApi.Teachers
             _context.TeacherStudents.AddRange(studentTeachers);
             _context.SaveChanges();
         }
-        public void Update(int id, Teacher updatedTeacher)
+        public void Update(int id, UpdateTeacherDto updatedTeacherDto)
         {
-            var teacher = _context.Teachers.FirstOrDefault(t => t.Id == id);
-            _mapper.Map(updatedTeacher, teacher);
-            _context.Teachers.Update(teacher);
+            var teachersIds = _context.Teachers.Include(s => s.TeacherStudents).ThenInclude(t => t.Student).Where(t => t.Id == id).ToList();
+
+            foreach (var teacherId in teachersIds)
+            {
+                _context.Teachers.Remove(teacherId);
+            }
+            var teacher = _mapper.Map<Teacher>(updatedTeacherDto);
+            _context.Teachers.Add(teacher);
+            _context.SaveChanges();
+            var studentTeachers = new List<TeacherStudent>();
+
+            foreach (var studentId in updatedTeacherDto.StudentIds)
+            {
+                var student = _context.Students.FirstOrDefault(s => s.Id == studentId);
+                if (student == null)
+                {
+                    throw new ArgumentException($"Student with ID {studentId} does not exist.");
+                }
+                var studentTeacher = new TeacherStudent
+                {
+                    StudentId = studentId,
+                    TeacherId = teacher.Id,
+                };
+                studentTeachers.Add(studentTeacher);
+            }
+            _context.TeacherStudents.AddRange(studentTeachers);
             _context.SaveChanges();
         }
         public void Delete(int teacherId)

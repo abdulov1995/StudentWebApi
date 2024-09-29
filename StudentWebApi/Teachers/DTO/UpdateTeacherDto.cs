@@ -6,6 +6,6 @@ namespace StudentWebApi.Teachers.DTO
     {
         public string Name { get; set; }
         public string Subject { get; set; }
-        //public List<StudentDto> Students { get; set; }
+        public List<int> StudentIds { get; set; }
     }
 }

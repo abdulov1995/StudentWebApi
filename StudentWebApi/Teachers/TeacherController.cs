@@ -30,9 +30,9 @@ namespace StudentWebApi.Teachers
             _teacherService.Create(teacher);
         }
         [HttpPut("{id}")]
-        public void Update(int teacherId, Teacher updatedTeacher)
+        public void Update(int teacherId, UpdateTeacherDto updatedTeacherDto)
         {
-            _teacherService.Update(teacherId, updatedTeacher);
+            _teacherService.Update(teacherId, updatedTeacherDto);
         }
         [HttpDelete("{id}")]
         public void Delete(int teacherId)

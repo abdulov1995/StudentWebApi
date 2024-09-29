@@ -8,7 +8,7 @@ namespace StudentWebApi.Teachers
         TeacherDetailDto GetById(int teacherId);
         List<TeacherDto> GetAll();
         void Create(CreateTeacherDto createTeacherDto);
-        void Update(int id, Teacher updatedTeacher);
+        void Update(int id, UpdateTeacherDto updatedTeacherDto);
         void Delete(int teacherId);
     }
 }

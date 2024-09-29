@@ -6,11 +6,13 @@ using StudentWebApi.Students.Models;
 using StudentWebApi.Teachers.Models;
 
 namespace StudentWebApi
+
 {
     public class StudentService : IStudentService
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        
         public StudentService(AppDbContext context, IMapper mapper)
         {
             _context = context;
@@ -18,12 +20,12 @@ namespace StudentWebApi
         }
         public StudentDetailDto GetById(int studentId)
         {
-            var student = _context.Students.Include(s => s.Teachers).FirstOrDefault(s => s.Id == studentId);
+            var student = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).FirstOrDefault(s => s.Id == studentId);
             return _mapper.Map<StudentDetailDto>(student);
         }
         public List<StudentDto> GetAll()
         {
-            var students = _context.Students.Include(s => s.Teachers).ToList();
+            var students = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t=>t.Teacher).ToList();
             return _mapper.Map<List<StudentDto>>(students);
         }
         public void Create(CreateStudentDto createStudentDto)
@@ -52,9 +54,27 @@ namespace StudentWebApi
         }
         public void Update(int id, UpdateStudentDto updatedStudentDto)
         {
-            var student = _context.Students.FirstOrDefault(s => s.Id == id);
-            _mapper.Map(updatedStudentDto, student);
-            _context.Students.Update(student);
+            var studentsIds = _context.Students.Include(s => s.TeacherStudents).ThenInclude(t => t.Teacher).Where(s=>s.Id==id).ToList();
+
+            foreach (var studentId in studentsIds)
+            {
+                _context.Students.Remove(studentId);
+            }
+            var student = _mapper.Map<Student>(updatedStudentDto);
+            _context.Students.Add(student);
+            _context.SaveChanges();
+            var teacherStudents = new List<TeacherStudent>();
+            foreach (var teacherId in updatedStudentDto.TeacherIds)
+            {
+                var teacher = _context.Teachers.FirstOrDefault(t => t.Id == teacherId);
+                var teacherStudent = new TeacherStudent
+                {
+                    TeacherId = teacherId,
+                    StudentId = student.Id
+                };
+                teacherStudents.Add(teacherStudent);
+            }
+            _context.TeacherStudents.AddRange(teacherStudents);
             _context.SaveChanges();
         }
         public void Delete(int studentId)

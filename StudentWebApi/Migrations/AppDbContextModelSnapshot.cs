@@ -21,21 +21,6 @@ namespace StudentWebApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeachersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("StudentsId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("StudentTeacher");
-                });
-
             modelBuilder.Entity("StudentWebApi.Students.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -98,21 +83,6 @@ namespace StudentWebApi.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("TeacherStudents");
-                });
-
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.HasOne("StudentWebApi.Students.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentWebApi.Teachers.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentWebApi.Teachers.Models.TeacherStudent", b =>

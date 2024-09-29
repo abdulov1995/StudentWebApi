@@ -11,7 +11,7 @@ using StudentWebApi;
 namespace StudentWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240906195050_mig1")]
+    [Migration("20240913072437_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -23,21 +23,6 @@ namespace StudentWebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeachersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("StudentsId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("StudentTeacher");
-                });
 
             modelBuilder.Entity("StudentWebApi.Students.Models.Student", b =>
                 {
@@ -101,21 +86,6 @@ namespace StudentWebApi.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("TeacherStudents");
-                });
-
-            modelBuilder.Entity("StudentTeacher", b =>
-                {
-                    b.HasOne("StudentWebApi.Students.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentWebApi.Teachers.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentWebApi.Teachers.Models.TeacherStudent", b =>
