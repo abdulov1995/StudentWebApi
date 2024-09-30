@@ -4,6 +4,9 @@ using StudentWebApi;
 using StudentWebApi.Students;
 using StudentWebApi.Teachers;
 using AutoMapper;
+using FluentValidation.AspNetCore;
+using StudentWebApi.Students.DTO;
+using StudentWebApi.Teachers.DTO;
 
 
 //using StudentWebApi.TeacherStudents;
@@ -21,7 +24,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddAutoMapper(typeof(StudentMapper).Assembly );
-//builder.Services.AddScoped<ITeacherStudentService, TeacherStudentService>();
+builder.Services.AddControllers().AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssemblyContaining<CreateStudentDto>());
+builder.Services.AddControllers().AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssemblyContaining<CreateTeacherDto>());
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 

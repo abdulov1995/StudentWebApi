@@ -27,9 +27,14 @@ namespace StudentWebApi.Students
            return _studentService.GetById(id);
         }
         [HttpPost]
-        public void Create(CreateStudentDto student)
+        public IActionResult Create([FromBody]CreateStudentDto student)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _studentService.Create(student);
+            return Ok();      
         }
         [HttpPut("{id}")]
         public void Update(int id, UpdateStudentDto updatedStudent)

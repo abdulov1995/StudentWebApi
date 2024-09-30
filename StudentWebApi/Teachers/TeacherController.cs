@@ -25,9 +25,14 @@ namespace StudentWebApi.Teachers
             return _teacherService.GetById(id);
         }
         [HttpPost]
-        public void Create(CreateTeacherDto teacher)
+        public IActionResult Create(CreateTeacherDto teacher)
         {
+            if (!ModelState.IsValid)
+            {
+               return  BadRequest(ModelState);
+            }
             _teacherService.Create(teacher);
+            return Ok();
         }
         [HttpPut("{id}")]
         public void Update(int teacherId, UpdateTeacherDto updatedTeacherDto)
